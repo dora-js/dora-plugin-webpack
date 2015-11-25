@@ -1,0 +1,39 @@
+{
+  "name": "dora-plugin-atool-build",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dora-js/dora"
+  },
+  "homepage": "https://github.com/dora-js/dora",
+  "author": "chencheng <sorrycc@gmail.com>",
+  "license": "MIT",
+  "main": "./lib",
+  "scripts": {
+    "build": "rm -rf lib && babel src --out-dir lib --ignore __tests__",
+    "prepublish": "npm run build",
+    "lint": "eslint --ext .js src"
+  },
+  "peerDependencies": {
+    "atool-build": "*"
+  },
+  "devDependencies": {
+    "babel-cli": "~6.2.0",
+    "babel-core": "~6.1.21",
+    "babel-plugin-add-module-exports": "~0.1.1",
+    "babel-preset-es2015": "~6.1.18",
+    "babel-preset-stage-0": "~6.1.18",
+    "eslint": "~1.9.0",
+    "eslint-config-airbnb": "~1.0.0",
+    "pre-commit": "~1.1.2"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "plugins": [
+      "add-module-exports"
+    ]
+  }
+}
