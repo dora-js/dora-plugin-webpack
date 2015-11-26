@@ -30,10 +30,10 @@ export default {
   },
 
   middleware: (args) => {
-    const { publicPath } = args.query;
+    const { publicPath, verbose } = args.query;
     const compiler = webpack(webpackConfig);
     compiler.plugin('done', function(stats) {
-      if (stats.hasErrors()) {
+      if (verbose || stats.hasErrors()) {
         console.log(stats.toString({colors: true}));
       }
     });

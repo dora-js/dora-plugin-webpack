@@ -14,9 +14,6 @@
     "prepublish": "npm run build",
     "lint": "eslint --ext .js src"
   },
-  "peerDependencies": {
-    "atool-build": "*"
-  },
   "devDependencies": {
     "babel-cli": "~6.2.0",
     "babel-core": "~6.1.21",
@@ -35,5 +32,9 @@
     "plugins": [
       "add-module-exports"
     ]
+  },
+  "dependencies": {
+    "atool-build": "0.x",
+    "koa-webpack-dev-middleware": "~1.0.1"
   }
 }
