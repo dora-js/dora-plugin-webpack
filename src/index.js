@@ -2,15 +2,17 @@ import mergeCustomConfig from 'atool-build/lib/mergeCustomConfig';
 import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
 import assign from 'object-assign';
+import { join } from 'path';
 
 let webpackConfig;
 
 export default {
 
   'middleware.before': (args) => {
-    const { cwd, applyPlugins } = args;
+    const { cwd, applyPlugins, query } = args;
 
-    webpackConfig = mergeCustomConfig(getWebpackCommonConfig(args), cwd, 'development');
+    const customConfigPath = join(cwd,query.config || 'webpack.config.js')
+    webpackConfig = mergeCustomConfig(getWebpackCommonConfig(args), customConfigPath, 'development');
     webpackConfig.devtool = '#source-map';
 
     webpackConfig.plugins.push(
