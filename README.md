@@ -29,4 +29,4 @@ $ ./node_modules/.bin/dora --plugins atool-build?publicPath=/${npm_pkg_name}
 
  ## 注意
  
- 为了和其他 plugin 通讯，并且没有找到更好的方法这里，这里临时先暴露了 `global.g_dora_plugin_atool_build_compiler`。
+为了和其他 plugin 通讯，并且没有找到更好的方法这里，这里临时先暴露了 `global.g_dora_plugin_atool_build_compiler`。
