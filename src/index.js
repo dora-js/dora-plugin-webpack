@@ -32,7 +32,7 @@ export default {
 
   middleware: (args) => {
     const { publicPath, verbose } = args.query;
-    const compiler = webpack(webpackConfig);
+    const compiler = global.g_dora_plugin_atool_build_compiler = webpack(webpackConfig);
     compiler.plugin('done', function doneHandler(stats) {
       if (verbose || stats.hasErrors()) {
         console.log(stats.toString({colors: true}));
