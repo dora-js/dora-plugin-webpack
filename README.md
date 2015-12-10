@@ -7,24 +7,24 @@ atool-build plugin for dora.
 ## Usage
 
 ```bash
-$ npm i dora dora-plugin-atool-build -SD
-$ ./node_modules/.bin/dora --plugins atool-build
+$ dora --plugins atool-build
 ```
 
 with options:
 
 ```bash
-$ ./node_modules/.bin/dora --plugins atool-build?publicPath=/${npm_pkg_name}
+$ dora --plugins atool-build?publicPath=/${npm_pkg_name}
 ```
 
 ### Options
 
 - `publicPath` -- default '/', http://webpack.github.io/docs/configuration.html#output-publicpath
+- `config` -- default 'webpack.config.js'
 
 
 ## Plugins
 
-- `atool-build.updateWebpackConfig` -- update webpack config after atool-build
+- `atool-build.updateWebpackConfig` -- update webpack config after this plugin
 
 ## 注意
  

@@ -32,6 +32,7 @@ export default {
 
   middleware: (args) => {
     const { publicPath, verbose } = args.query;
+    // export compiler with global temporarily
     const compiler = global.g_dora_plugin_atool_build_compiler = webpack(webpackConfig);
     compiler.plugin('done', function doneHandler(stats) {
       if (verbose || stats.hasErrors()) {
