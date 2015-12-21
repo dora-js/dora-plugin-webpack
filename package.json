@@ -1,6 +1,6 @@
 {
   "name": "dora-plugin-atool-build",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/dora-js/dora-plugin-atool-build"
@@ -31,8 +31,8 @@
     "pre-commit": "~1.1.2"
   },
   "peerDependencies": {
-    "atool-build": "^0.3.1",
-    "dora": "^0.1.0"
+    "atool-build": "^0.4.2",
+    "dora": "^0.1.1"
   },
   "babel": {
     "presets": [
