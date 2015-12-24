@@ -2,6 +2,7 @@ import mergeCustomConfig from 'atool-build/lib/mergeCustomConfig';
 import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
 import { join } from 'path';
+import chalk from 'chalk';
 
 let webpackConfig;
 
@@ -19,10 +20,10 @@ export default {
         const stream = process.stderr;
         if (stream.isTTY && percentage < 0.71) {
           stream.cursorTo(0);
-          stream.write(msg);
+          stream.write('📦  ' + chalk.magenta(msg));
           stream.clearLine(1);
         } else if (percentage === 1) {
-          console.log('\nwebpack: bundle build is now finished.');
+          console.log(chalk.green('\nwebpack: bundle build is now finished.'));
         }
       })
     );

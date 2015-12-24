@@ -17,6 +17,7 @@
     "lint"
   ],
   "dependencies": {
+    "chalk": "^1.1.1",
     "koa-webpack-dev-middleware": "~1.0.1"
   },
   "devDependencies": {
