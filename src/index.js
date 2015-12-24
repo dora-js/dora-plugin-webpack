@@ -3,6 +3,7 @@ import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
 import { join } from 'path';
 import chalk from 'chalk';
+import assign from 'object-assign';
 
 let webpackConfig;
 
@@ -32,7 +33,7 @@ export default {
   },
 
   middleware: (args) => {
-    const { publicPath, verbose } = args.query;
+    const { verbose } = args.query;
     // export compiler with global temporarily
     const compiler = global.g_dora_plugin_atool_build_compiler = webpack(webpackConfig);
     compiler.plugin('done', function doneHandler(stats) {
@@ -40,9 +41,9 @@ export default {
         console.log(stats.toString({colors: true}));
       }
     });
-    return require('koa-webpack-dev-middleware')(compiler, {
-      publicPath: publicPath || '/',
+    return require('koa-webpack-dev-middleware')(compiler, assign({
+      publicPath: '/',
       quiet: true,
-    });
+    }, args.query));
   },
 };
