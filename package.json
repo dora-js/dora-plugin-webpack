@@ -1,6 +1,6 @@
 {
   "name": "dora-plugin-atool-build",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/dora-js/dora-plugin-atool-build"
