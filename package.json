@@ -30,8 +30,8 @@
     "pre-commit": "~1.1.2"
   },
   "peerDependencies": {
-    "atool-build": "^0.4.2",
-    "dora": "^0.1.1"
+    "atool-build": "0.x",
+    "dora": "0.x"
   },
   "babel": {
     "presets": [
