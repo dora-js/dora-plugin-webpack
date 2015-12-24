@@ -1,7 +1,12 @@
 language: node_js
 
+install:
+  - npm install
+  - npm install dora@0.x atool-build@0.x
+
 node_js:
   - "4"
   - "5"
 
-
+after_success:
+  - npm run coveralls
