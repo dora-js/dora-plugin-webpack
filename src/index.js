@@ -9,17 +9,17 @@ let webpackConfig;
 
 export default {
 
-  'middleware.before': (args) => {
-    const { cwd, applyPlugins, query } = args;
+  'middleware.before'() {
+    const { cwd, applyPlugins, query } = this;
 
     const customConfigPath = join(cwd, query.config || 'webpack.config.js');
-    webpackConfig = mergeCustomConfig(getWebpackCommonConfig(args), customConfigPath, 'development');
+    webpackConfig = mergeCustomConfig(getWebpackCommonConfig(this), customConfigPath, 'development');
     webpackConfig.devtool = '#source-map';
 
     webpackConfig.plugins.push(
       new ProgressPlugin((percentage, msg) => {
         const stream = process.stderr;
-        if (stream.isTTY && percentage < 0.71) {
+        if (stream.isTTY && percentage < 0.71 && this.get('__ready')) {
           stream.cursorTo(0);
           stream.write('📦  ' + chalk.magenta(msg));
           stream.clearLine(1);
@@ -32,10 +32,10 @@ export default {
     webpackConfig = applyPlugins('atool-build.updateWebpackConfig', webpackConfig);
   },
 
-  middleware: (args) => {
-    const { verbose } = args.query;
-    // export compiler with global temporarily
-    const compiler = global.g_dora_plugin_atool_build_compiler = webpack(webpackConfig);
+  'middleware'() {
+    const { verbose } = this.query;
+    const compiler = webpack(webpackConfig);
+    this.set('compiler', compiler);
     compiler.plugin('done', function doneHandler(stats) {
       if (verbose || stats.hasErrors()) {
         console.log(stats.toString({colors: true}));
@@ -44,6 +44,6 @@ export default {
     return require('koa-webpack-dev-middleware')(compiler, assign({
       publicPath: '/',
       quiet: true,
-    }, args.query));
+    }, this.query));
   },
 };

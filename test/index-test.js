@@ -5,7 +5,7 @@ import { join } from 'path';
 
 describe('index', () => {
 
-  const port = 12345;
+  const port = 12347;
   const oldCwd = process.cwd();
   const cwd = join(__dirname, './fixtures/app');
 
@@ -15,7 +15,9 @@ describe('index', () => {
       process.chdir(cwd);
       dora({
         port,
-        plugins: ['../../../src/index?publicPath=/foo/&verbose'],
+        plugins: [
+          '../../../src/index?publicPath=/foo/&verbose'
+        ],
         cwd: cwd,
         verbose: true,
       });
