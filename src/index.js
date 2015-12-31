@@ -13,7 +13,7 @@ export default {
     const { cwd, applyPlugins, query } = this;
 
     const customConfigPath = join(cwd, query.config || 'webpack.config.js');
-    webpackConfig = mergeCustomConfig(getWebpackCommonConfig(this), customConfigPath, 'development');
+    webpackConfig = getWebpackCommonConfig(this);
     webpackConfig.devtool = '#source-map';
 
     webpackConfig.plugins.push(
@@ -30,6 +30,7 @@ export default {
     );
 
     webpackConfig = applyPlugins('atool-build.updateWebpackConfig', webpackConfig);
+    webpackConfig = mergeCustomConfig(webpackConfig, customConfigPath, 'development');
   },
 
   'middleware'() {
