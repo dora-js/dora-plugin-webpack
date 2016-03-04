@@ -3,7 +3,6 @@ import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
 import { join } from 'path';
 import chalk from 'chalk';
-import assign from 'object-assign';
 
 let webpackConfig;
 
@@ -42,9 +41,10 @@ export default {
         console.log(stats.toString({colors: true}));
       }
     });
-    return require('koa-webpack-dev-middleware')(compiler, assign({
+    return require('koa-webpack-dev-middleware')(compiler, {
       publicPath: '/',
       quiet: true,
-    }, this.query));
+      ...this.query,
+    });
   },
 };
