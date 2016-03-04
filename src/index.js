@@ -3,7 +3,10 @@ import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
 import { join } from 'path';
 import chalk from 'chalk';
-import assign from 'object-assign';
+import chokidar from 'chokidar';
+import NpmInstallPlugin from 'npm-install-webpack-plugin-cn';
+import isEqual from 'lodash.isequal';
+import { readFileSync, existsSync } from 'fs';
 
 let webpackConfig;
 
@@ -11,12 +14,19 @@ export default {
 
   'middleware.before'() {
     const { cwd, applyPlugins, query } = this;
-
     const customConfigPath = join(cwd, query.config || 'webpack.config.js');
-    webpackConfig = getWebpackCommonConfig(this);
-    webpackConfig.devtool = '#source-map';
 
-    webpackConfig.plugins.push(
+    if (existsSync(customConfigPath)) {
+      const customConfig = require(customConfigPath);
+      if (typeof customConfig === 'object') {
+        webpackConfig = customConfig;
+        return;
+      }
+    }
+
+    webpackConfig = getWebpackCommonConfig(this);
+    webpackConfig.devtool = '#cheap-module-eval-source-map';
+    webpackConfig.plugins = webpackConfig.plugins.concat([
       new ProgressPlugin((percentage, msg) => {
         const stream = process.stderr;
         if (stream.isTTY && percentage < 0.71 && this.get('__ready')) {
@@ -26,9 +36,11 @@ export default {
         } else if (percentage === 1) {
           console.log(chalk.green('\nwebpack: bundle build is now finished.'));
         }
-      })
-    );
-
+      }),
+      new NpmInstallPlugin({
+        save: true,
+      }),
+    ]);
     webpackConfig = applyPlugins('atool-build.updateWebpackConfig', webpackConfig);
     webpackConfig = mergeCustomConfig(webpackConfig, customConfigPath, 'development');
   },
@@ -42,9 +54,35 @@ export default {
         console.log(stats.toString({colors: true}));
       }
     });
-    return require('koa-webpack-dev-middleware')(compiler, assign({
+    return require('koa-webpack-dev-middleware')(compiler, {
       publicPath: '/',
       quiet: true,
-    }, this.query));
+      ...this.query,
+    });
+  },
+
+  'server.after'() {
+    const { cwd, query } = this;
+    const pkgPath = join(cwd, 'package.json');
+
+    function getEntry() {
+      try {
+        return JSON.parse(readFileSync(pkgPath, 'utf-8')).entry;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    const entry = getEntry();
+    chokidar.watch(pkgPath).on('change', () => {
+      if (!isEqual(getEntry(), entry)) {
+        this.restart();
+      }
+    });
+
+    const webpackConfigPath = join(cwd, query.config || 'webpack.config.js');
+    chokidar.watch(webpackConfigPath).on('change', () => {
+      this.restart();
+    });
   },
 };
