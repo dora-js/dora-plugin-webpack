@@ -13,7 +13,7 @@ export default {
 
     const customConfigPath = join(cwd, query.config || 'webpack.config.js');
     webpackConfig = getWebpackCommonConfig(this);
-    webpackConfig.devtool = '#source-map';
+    webpackConfig.devtool = '#cheap-module-eval-source-map';
 
     webpackConfig.plugins.push(
       new ProgressPlugin((percentage, msg) => {
