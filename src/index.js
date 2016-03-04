@@ -3,6 +3,7 @@ import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
 import { join } from 'path';
 import chalk from 'chalk';
+import NpmInstallPlugin from 'npm-install-webpack-plugin-cn';
 
 let webpackConfig;
 
@@ -10,12 +11,11 @@ export default {
 
   'middleware.before'() {
     const { cwd, applyPlugins, query } = this;
-
     const customConfigPath = join(cwd, query.config || 'webpack.config.js');
+
     webpackConfig = getWebpackCommonConfig(this);
     webpackConfig.devtool = '#cheap-module-eval-source-map';
-
-    webpackConfig.plugins.push(
+    webpackConfig.plugins = webpackConfig.plugins.concat([
       new ProgressPlugin((percentage, msg) => {
         const stream = process.stderr;
         if (stream.isTTY && percentage < 0.71 && this.get('__ready')) {
@@ -25,9 +25,11 @@ export default {
         } else if (percentage === 1) {
           console.log(chalk.green('\nwebpack: bundle build is now finished.'));
         }
-      })
-    );
-
+      }),
+      new NpmInstallPlugin({
+        save: true,
+      }),
+    ]);
     webpackConfig = applyPlugins('atool-build.updateWebpackConfig', webpackConfig);
     webpackConfig = mergeCustomConfig(webpackConfig, customConfigPath, 'development');
   },
