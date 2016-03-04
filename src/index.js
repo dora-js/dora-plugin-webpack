@@ -3,7 +3,10 @@ import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
 import { join } from 'path';
 import chalk from 'chalk';
+import chokidar from 'chokidar';
 import NpmInstallPlugin from 'npm-install-webpack-plugin-cn';
+import isEqual from 'lodash.isequal';
+import { readFileSync } from 'fs';
 
 let webpackConfig;
 
@@ -47,6 +50,31 @@ export default {
       publicPath: '/',
       quiet: true,
       ...this.query,
+    });
+  },
+
+  'server.after'() {
+    const { cwd } = this;
+    const pkgPath = join(cwd, 'package.json');
+
+    function getEntry() {
+      try {
+        return JSON.parse(readFileSync(pkgPath, 'utf-8')).entry;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    const entry = getEntry();
+    chokidar.watch(pkgPath).on('change', () => {
+      if (!isEqual(getEntry(), entry)) {
+        this.restart();
+      }
+    });
+
+    const webpackConfigPath = join(cwd, 'webpack.config.js');
+    chokidar.watch(webpackConfigPath).on('change', () => {
+      this.restart();
     });
   },
 };
