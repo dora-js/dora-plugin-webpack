@@ -54,7 +54,7 @@ export default {
   },
 
   'server.after'() {
-    const { cwd } = this;
+    const { cwd, query } = this;
     const pkgPath = join(cwd, 'package.json');
 
     function getEntry() {
@@ -72,7 +72,7 @@ export default {
       }
     });
 
-    const webpackConfigPath = join(cwd, 'webpack.config.js');
+    const webpackConfigPath = join(cwd, query.config || 'webpack.config.js');
     chokidar.watch(webpackConfigPath).on('change', () => {
       this.restart();
     });
