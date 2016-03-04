@@ -6,7 +6,7 @@ import chalk from 'chalk';
 import chokidar from 'chokidar';
 import NpmInstallPlugin from 'npm-install-webpack-plugin-cn';
 import isEqual from 'lodash.isequal';
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 
 let webpackConfig;
 
@@ -15,6 +15,14 @@ export default {
   'middleware.before'() {
     const { cwd, applyPlugins, query } = this;
     const customConfigPath = join(cwd, query.config || 'webpack.config.js');
+
+    if (existsSync(customConfigPath)) {
+      const customConfig = require(customConfigPath);
+      if (typeof customConfig === 'object') {
+        webpackConfig = customConfig;
+        return;
+      }
+    }
 
     webpackConfig = getWebpackCommonConfig(this);
     webpackConfig.devtool = '#cheap-module-eval-source-map';
