@@ -4,5 +4,5 @@ publish:
 	npm publish
 
 publish-sync: publish
-	cnpm sync dora-plugin-atool-build
-	tnpm sync dora-plugin-atool-build
+	cnpm sync dora-plugin-webpack
+	tnpm sync dora-plugin-webpack
