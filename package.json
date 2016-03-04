@@ -1,5 +1,5 @@
 {
-  "name": "dora-plugin-atool-build",
+  "name": "dora-plugin-webpack",
   "version": "0.4.1",
   "repository": {
     "type": "git",
