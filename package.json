@@ -3,9 +3,9 @@
   "version": "0.5.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dora-js/dora-plugin-atool-build"
+    "url": "https://github.com/dora-js/dora-plugin-webpack"
   },
-  "homepage": "https://github.com/dora-js/dora-plugin-atool-build",
+  "homepage": "https://github.com/dora-js/dora-plugin-webpack",
   "author": "chencheng <sorrycc@gmail.com>",
   "license": "MIT",
   "main": "./lib",
