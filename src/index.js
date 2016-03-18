@@ -37,10 +37,12 @@ export default {
           console.log(chalk.green('\nwebpack: bundle build is now finished.'));
         }
       }),
-      new NpmInstallPlugin({
-        save: true,
-      }),
     ]);
+    if (!query.disableNpmInstall) {
+      webpackConfig.plugins.push(new NpmInstallPlugin({
+        save: true,
+      }));
+    }
     webpackConfig = applyPlugins('atool-build.updateWebpackConfig', webpackConfig);
     webpackConfig = mergeCustomConfig(webpackConfig, customConfigPath, 'development');
   },
