@@ -43,8 +43,9 @@ export default {
         save: true,
       }));
     }
-    webpackConfig = applyPlugins('atool-build.updateWebpackConfig', webpackConfig);
+    webpackConfig = applyPlugins('webpack.updateConfig', webpackConfig);
     webpackConfig = mergeCustomConfig(webpackConfig, customConfigPath, 'development');
+    webpackConfig = applyPlugins('webpack.updateConfig.finally', webpackConfig);
   },
 
   'middleware'() {
