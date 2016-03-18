@@ -27,7 +27,7 @@ export default {
     }
 
     webpackConfig = getWebpackCommonConfig(this);
-    webpackConfig.devtool = '##cheap-module-inline-source-map';
+    webpackConfig.devtool = '#cheap-module-source-map';
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new ProgressPlugin((percentage, msg) => {
         const stream = process.stderr;
