@@ -18,6 +18,8 @@ export default {
 
     if (existsSync(customConfigPath)) {
       const customConfig = require(customConfigPath);
+
+      // Support native webpack
       if (typeof customConfig === 'object') {
         webpackConfig = customConfig;
         return;
