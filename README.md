@@ -32,6 +32,7 @@ $ dora --plugins webpack?{"watchOptions":{"poll":true}}
 - `publicPath` -- default '/', http://webpack.github.io/docs/configuration.html#output-publicpath
 - `config` -- default 'webpack.config.js'
 - `verbose` -- more logs
+- `disableNpmInstall` -- disable NpmInstallPlugin
 
 And other webpack options, like `watchOptions`, `headers`, `stats`, ...
 

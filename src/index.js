@@ -18,6 +18,8 @@ export default {
 
     if (existsSync(customConfigPath)) {
       const customConfig = require(customConfigPath);
+
+      // Support native webpack
       if (typeof customConfig === 'object') {
         webpackConfig = customConfig;
         return;
@@ -37,12 +39,15 @@ export default {
           console.log(chalk.green('\nwebpack: bundle build is now finished.'));
         }
       }),
-      new NpmInstallPlugin({
-        save: true,
-      }),
     ]);
-    webpackConfig = applyPlugins('atool-build.updateWebpackConfig', webpackConfig);
+    if (!query.disableNpmInstall) {
+      webpackConfig.plugins.push(new NpmInstallPlugin({
+        save: true,
+      }));
+    }
+    webpackConfig = applyPlugins('webpack.updateConfig', webpackConfig);
     webpackConfig = mergeCustomConfig(webpackConfig, customConfigPath, 'development');
+    webpackConfig = applyPlugins('webpack.updateConfig.finally', webpackConfig);
   },
 
   'middleware'() {
