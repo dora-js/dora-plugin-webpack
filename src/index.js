@@ -48,6 +48,9 @@ export default {
     webpackConfig = applyPlugins('webpack.updateConfig', webpackConfig);
     webpackConfig = mergeCustomConfig(webpackConfig, customConfigPath, 'development');
     webpackConfig = applyPlugins('webpack.updateConfig.finally', webpackConfig);
+    if (query.publicPath) {
+      webpackConfig.output.publicPath = query.publicPath;
+    }
   },
 
   'middleware'() {
