@@ -21,6 +21,7 @@
     "lint"
   ],
   "dependencies": {
+    "atool-build": "0.x",
     "chalk": "^1.1.1",
     "koa-webpack-dev-middleware": "~1.2.0",
     "npm-install-webpack-plugin-cn": "^2.0.2",
@@ -28,7 +29,6 @@
     "lodash.isequal": "^4.1.1"
   },
   "devDependencies": {
-    "atool-build": "0.x",
     "babel-cli": "~6.6.0",
     "babel-core": "~6.6.0",
     "babel-istanbul": "^0.5.9",
