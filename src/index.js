@@ -1,7 +1,7 @@
 import mergeCustomConfig from 'atool-build/lib/mergeCustomConfig';
 import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
 import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import chalk from 'chalk';
 import chokidar from 'chokidar';
 import NpmInstallPlugin from 'npm-install-webpack-plugin-cn';
@@ -11,10 +11,11 @@ import { readFileSync, existsSync } from 'fs';
 let webpackConfig;
 
 export default {
+  name: 'dora-plugin-webpack',
 
   'middleware.before'() {
     const { cwd, applyPlugins, query } = this;
-    const customConfigPath = join(cwd, query.config || 'webpack.config.js');
+    const customConfigPath = resolve(cwd, query.config || 'webpack.config.js');
 
     if (existsSync(customConfigPath)) {
       const customConfig = require(customConfigPath);
@@ -88,7 +89,7 @@ export default {
       }
     });
 
-    const webpackConfigPath = join(cwd, query.config || 'webpack.config.js');
+    const webpackConfigPath = resolve(cwd, query.config || 'webpack.config.js');
     chokidar.watch(webpackConfigPath).on('change', () => {
       this.restart();
     });
