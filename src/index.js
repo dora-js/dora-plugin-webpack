@@ -52,12 +52,14 @@ export default {
     if (query.publicPath) {
       webpackConfig.output.publicPath = query.publicPath;
     }
+
+    const compiler = webpack(webpackConfig);
+    this.set('compiler', compiler);
   },
 
   'middleware'() {
     const { verbose } = this.query;
-    const compiler = webpack(webpackConfig);
-    this.set('compiler', compiler);
+    const compiler = this.get('compiler', compiler);
     compiler.plugin('done', function doneHandler(stats) {
       if (verbose || stats.hasErrors()) {
         console.log(stats.toString({colors: true}));
