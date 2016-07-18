@@ -31,7 +31,7 @@ export default {
       }
     }
 
-    webpackConfig = getWebpackCommonConfig({ ...this, ...{ cwd }});
+    webpackConfig = getWebpackCommonConfig({ ...this, cwd });
     webpackConfig.devtool = '#cheap-module-source-map';
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new ProgressPlugin((percentage, msg) => {
