@@ -16,7 +16,7 @@ describe('index', () => {
       dora({
         port,
         plugins: [
-          '../../../src/index?publicPath=/foo/&verbose'
+          '../../../src/index?{"publicPath": "/foo/", "verbose":true}'
         ],
         cwd: cwd,
         verbose: true,

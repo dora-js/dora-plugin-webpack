@@ -14,7 +14,11 @@ export default {
   name: 'dora-plugin-webpack',
 
   'middleware.before'() {
-    const { cwd, applyPlugins, query } = this;
+    const { applyPlugins, query } = this;
+    let { cwd } = this;
+    if (query.cwd) {
+      cwd = query.cwd;
+    }
     const customConfigPath = resolve(cwd, query.config || 'webpack.config.js');
 
     if (existsSync(customConfigPath)) {
@@ -27,7 +31,7 @@ export default {
       }
     }
 
-    webpackConfig = getWebpackCommonConfig(this);
+    webpackConfig = getWebpackCommonConfig({ ...this, cwd });
     webpackConfig.devtool = '#cheap-module-source-map';
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new ProgressPlugin((percentage, msg) => {
@@ -71,7 +75,11 @@ export default {
   },
 
   'server.after'() {
-    const { cwd, query } = this;
+    const { query } = this;
+    let { cwd } = this;
+    if (query.cwd) {
+      cwd = query.cwd;
+    }
     const pkgPath = join(cwd, 'package.json');
 
     function getEntry() {

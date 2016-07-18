@@ -1,7 +1,7 @@
 # dora-plugin-webpack
 
 
-webpack plugin for dora.
+dora plugin for webpack.
 
 
 [![NPM version](https://img.shields.io/npm/v/dora-plugin-webpack.svg?style=flat)](https://npmjs.org/package/dora-plugin-webpack)
@@ -32,6 +32,7 @@ $ dora --plugins webpack?{"watchOptions":{"poll":true}}
 
 ### Options
 
+- `cwd` -- default from dora
 - `publicPath` -- default '/', http://webpack.github.io/docs/configuration.html#output-publicpath
 - `config` -- default 'webpack.config.js'
 - `verbose` -- more logs
