@@ -2,6 +2,10 @@ History
 
 ---
 
+## 0.7.0
+
+- peerDeps: upgrade dora to 0.4.x
+
 ## 0.6.5
 
 - fix: config path
