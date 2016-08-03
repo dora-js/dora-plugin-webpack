@@ -2,6 +2,10 @@ History
 
 ---
 
+## 0.8.0
+
+- support `physcisFileSystem` option for writing output files to disk
+
 ## 0.7.0
 
 - peerDeps: upgrade dora to 0.4.x

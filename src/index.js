@@ -59,7 +59,7 @@ export default {
   },
 
   'middleware'() {
-    const { verbose } = this.query;
+    const { verbose, physcisFileSystem } = this.query;
     const compiler = webpack(webpackConfig);
     this.set('compiler', compiler);
     compiler.plugin('done', function doneHandler(stats) {
@@ -67,6 +67,12 @@ export default {
         console.log(stats.toString({colors: true}));
       }
     });
+    if (physcisFileSystem) {
+      const outputFileSystem = compiler.outputFileSystem;
+      setTimeout(function() {
+        compiler.outputFileSystem = outputFileSystem;
+      }, 0);
+    }
     return require('koa-webpack-dev-middleware')(compiler, {
       publicPath: '/',
       quiet: true,

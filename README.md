@@ -37,6 +37,7 @@ $ dora --plugins webpack?{"watchOptions":{"poll":true}}
 - `config` -- default 'webpack.config.js'
 - `verbose` -- more logs
 - `disableNpmInstall` -- disable NpmInstallPlugin
+- `physcisFileSystem` -- write output files to disk 
 
 And other webpack options, like `watchOptions`, `headers`, `stats`, ...
 
