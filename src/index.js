@@ -56,6 +56,9 @@ export default {
     if (query.publicPath) {
       webpackConfig.output.publicPath = query.publicPath;
     }
+    if (!query.publicPath && webpackConfig.output.publicPath) {
+      query.publicPath = webpackConfig.output.publicPath;
+    }
   },
 
   'middleware'() {
@@ -69,7 +72,7 @@ export default {
     });
     if (physcisFileSystem) {
       const outputFileSystem = compiler.outputFileSystem;
-      setTimeout(function() {
+      setTimeout(() => {
         compiler.outputFileSystem = outputFileSystem;
       }, 0);
     }
