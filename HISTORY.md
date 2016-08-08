@@ -2,6 +2,10 @@ History
 
 ---
 
+## 0.8.1
+
+- enhance publicPath. Ref. https://github.com/dora-js/dora-plugin-webpack/pull/22
+
 ## 0.8.0
 
 - support `physcisFileSystem` option for writing output files to disk
