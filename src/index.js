@@ -32,7 +32,7 @@ export default {
     }
 
     webpackConfig = getWebpackCommonConfig({ ...this, cwd });
-    webpackConfig.devtool = 'cheap-module-eval-source-map';
+    webpackConfig.devtool = 'eval-cheap-module-source-map';
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new ProgressPlugin((percentage, msg) => {
         const stream = process.stderr;
