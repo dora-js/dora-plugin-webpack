@@ -23,10 +23,11 @@
   ],
   "dependencies": {
     "chalk": "^1.1.1",
-    "koa-webpack-dev-middleware": "~1.2.0",
-    "npm-install-webpack-plugin-cn": "^2.0.2",
     "chokidar": "^1.4.3",
-    "lodash.isequal": "^4.1.1"
+    "koa-webpack-dev-middleware": "~1.2.0",
+    "lodash.isequal": "^4.1.1",
+    "npm-install-webpack-plugin-cn": "^2.0.2",
+    "webpack-dashboard": "^0.1.1"
   },
   "devDependencies": {
     "atool-build": "0.x",

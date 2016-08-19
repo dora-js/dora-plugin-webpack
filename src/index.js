@@ -1,12 +1,15 @@
 import mergeCustomConfig from 'atool-build/lib/mergeCustomConfig';
 import getWebpackCommonConfig from 'atool-build/lib/getWebpackCommonConfig';
-import webpack, { ProgressPlugin } from 'atool-build/lib/webpack';
+import webpack from 'atool-build/lib/webpack';
 import { join, resolve } from 'path';
 import chalk from 'chalk';
 import chokidar from 'chokidar';
 import NpmInstallPlugin from 'npm-install-webpack-plugin-cn';
 import isEqual from 'lodash.isequal';
 import { readFileSync, existsSync } from 'fs';
+
+import Dashboard from 'webpack-dashboard';
+import DashboardPlugin from 'webpack-dashboard/plugin';
 
 let webpackConfig;
 
@@ -30,20 +33,11 @@ export default {
         return;
       }
     }
-
     webpackConfig = getWebpackCommonConfig({ ...this, cwd });
     webpackConfig.devtool = '#cheap-module-source-map';
+    const dashboard = new Dashboard();
     webpackConfig.plugins = webpackConfig.plugins.concat([
-      new ProgressPlugin((percentage, msg) => {
-        const stream = process.stderr;
-        if (stream.isTTY && percentage < 0.71 && this.get('__ready')) {
-          stream.cursorTo(0);
-          stream.write('📦  ' + chalk.magenta(msg));
-          stream.clearLine(1);
-        } else if (percentage === 1) {
-          console.log(chalk.green('\nwebpack: bundle build is now finished.'));
-        }
-      }),
+      new DashboardPlugin(dashboard.setData)
     ]);
     if (!query.disableNpmInstall) {
       webpackConfig.plugins.push(new NpmInstallPlugin({
