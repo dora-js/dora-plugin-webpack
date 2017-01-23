@@ -24,11 +24,6 @@ with options:
 $ dora --plugins "webpack?publicPath=/${npm_pkg_name}&verbose"
 ```
 
-with options in Object:
-
-```bash
-$ dora --plugins webpack?{"watchOptions":{"poll":true}}
-```
 
 ### Options
 
