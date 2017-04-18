@@ -22,6 +22,7 @@
     "lint"
   ],
   "dependencies": {
+    "atool-build": "^0.5.0",
     "chalk": "^1.1.1",
     "koa-webpack-dev-middleware": "~1.2.0",
     "npm-install-webpack-plugin-cn": "^2.0.2",
