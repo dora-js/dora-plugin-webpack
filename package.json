@@ -29,7 +29,7 @@
     "lodash.isequal": "^4.1.1"
   },
   "devDependencies": {
-    "atool-build": "0.x",
+    "atool-build": "1.x",
     "babel-cli": "^6.7.5",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.1.2",
@@ -47,7 +47,7 @@
     "request": "^2.67.0"
   },
   "peerDependencies": {
-    "atool-build": "0.x",
+    "atool-build": "1.x",
     "dora": "0.4.x"
   },
   "babel": {
