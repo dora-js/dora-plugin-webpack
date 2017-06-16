@@ -13,7 +13,7 @@ let webpackConfig;
 export default {
   name: 'dora-plugin-webpack',
 
-  'middleware.before'() {
+  'middleware.before': function () {
     const { applyPlugins, query } = this;
     let { cwd } = this;
     if (query.cwd) {
@@ -42,7 +42,7 @@ export default {
         const stream = process.stderr;
         if (stream.isTTY && percentage < 0.71 && this.get('__ready')) {
           stream.cursorTo(0);
-          stream.write('📦  ' + chalk.magenta(msg));
+          stream.write(`📦  ${chalk.magenta(msg)}`);
           stream.clearLine(1);
         } else if (percentage === 1) {
           console.log(chalk.green('\nwebpack: bundle build is now finished.'));
@@ -65,13 +65,13 @@ export default {
     }
   },
 
-  'middleware'() {
+  middleware() {
     const { verbose, physcisFileSystem } = this.query;
     const compiler = webpack(webpackConfig);
     this.set('compiler', compiler);
-    compiler.plugin('done', function doneHandler(stats) {
+    compiler.plugin('done', (stats) => {
       if (verbose || stats.hasErrors()) {
-        console.log(stats.toString({colors: true}));
+        console.log(stats.toString({ colors: true }));
       }
     });
     if (physcisFileSystem) {
@@ -87,7 +87,7 @@ export default {
     });
   },
 
-  'server.after'() {
+  'server.after': function () {
     const { query } = this;
     let { cwd } = this;
     if (query.cwd) {
