@@ -1,5 +1,6 @@
 {
   "name": "dora-plugin-webpack",
+  "version": "1.0.0",
   "description": "dora plugin for webpack",
   "repository": {
     "type": "git",
@@ -14,6 +15,7 @@
     "test": "babel-node $(npm bin)/babel-istanbul cover $(npm bin)/_mocha -- --no-timeouts",
     "debug": "$(npm bin)/mocha --require babel-core/register --no-timeouts",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "lint": "eslint --ext .js src",
     "pub": "npm run build && npm publish && rm -rf lib && git push origin"
   },
   "pre-commit": [

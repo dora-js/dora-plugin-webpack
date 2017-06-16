@@ -2,6 +2,12 @@ History
 
 ---
 
+## 1.0.0
+
+- deps: upgrade all deps
+- feature: support `silent` option for disabling notification
+
+
 ## 0.8.1
 
 - enhance publicPath. Ref. https://github.com/dora-js/dora-plugin-webpack/pull/22
