@@ -19,6 +19,10 @@ export default {
     if (query.cwd) {
       cwd = query.cwd;
     }
+    let silent = false;
+    if (query.silent) {
+      silent = true;
+    }
     const customConfigPath = resolve(cwd, query.config || 'webpack.config.js');
 
     if (existsSync(customConfigPath)) {
@@ -31,7 +35,7 @@ export default {
       }
     }
 
-    webpackConfig = getWebpackCommonConfig({ ...this, cwd });
+    webpackConfig = getWebpackCommonConfig({ ...this, cwd, silent });
     webpackConfig.devtool = '#cheap-module-source-map';
     webpackConfig.plugins = webpackConfig.plugins.concat([
       new ProgressPlugin((percentage, msg) => {

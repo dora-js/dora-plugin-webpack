@@ -33,6 +33,7 @@ $ dora --plugins webpack?{"watchOptions":{"poll":true}}
 ### Options
 
 - `cwd` -- default from dora
+- `silent` -- disable notification
 - `publicPath` -- default '/', http://webpack.github.io/docs/configuration.html#output-publicpath
 - `config` -- default 'webpack.config.js'
 - `verbose` -- more logs
